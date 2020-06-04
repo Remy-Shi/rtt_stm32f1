@@ -14,7 +14,7 @@
 #include <rtthread.h>
 #include "rtdevice.h"
 #include <rthw.h>
-#include <drv_common.h>
+//#include <drv_common.h>
 
 #ifdef __cplusplus
 extern "C" {

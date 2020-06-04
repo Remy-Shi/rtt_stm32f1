@@ -173,6 +173,25 @@ if RT_USING_SERIAL
 
 endif
 
+config BSP_USING_ON_CHIP_FLASH
+	bool "Using on-ship flash"
+
+if BSP_USING_ON_CHIP_FLASH
+	
+	config STM32_FLASH_START_ADDRESS
+		int "on-ship flash start address"
+		default 0x0803B000
+	
+	config STM32_FLASH_END_ADDRESS
+		int "on-ship flash end address"
+		default 0x08040000
+		
+	config STM32_FLASH_SIZE
+		int "on-ship flash size"
+		default 0x5000
+	
+endif
+
 if RT_USING_SPI
     config RT_USING_SPI1
         bool "Using spi1"

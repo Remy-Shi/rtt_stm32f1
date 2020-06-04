@@ -70,6 +70,12 @@
 
 /* Device virtual file system */
 
+#define RT_USING_DFS
+#define DFS_USING_WORKDIR
+#define DFS_FILESYSTEMS_MAX 2
+#define DFS_FILESYSTEM_TYPES_MAX 2
+#define DFS_FD_MAX 16
+#define RT_USING_DFS_DEVFS
 
 /* Device Drivers */
 
@@ -79,7 +85,7 @@
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
 #define RT_USING_PIN
-#define RT_USING_SPI
+#define RT_USING_MTD_NOR
 
 /* Using WiFi */
 
@@ -90,6 +96,7 @@
 /* POSIX layer and C standard library */
 
 #define RT_USING_LIBC
+#define RT_USING_POSIX
 
 /* Network */
 
@@ -113,6 +120,20 @@
 
 /* Utilities */
 
+#define RT_USING_ULOG
+#define ULOG_OUTPUT_LVL_D
+#define ULOG_OUTPUT_LVL 7
+#define ULOG_ASSERT_ENABLE
+#define ULOG_LINE_BUF_SIZE 128
+
+/* log format */
+
+#define ULOG_USING_COLOR
+#define ULOG_OUTPUT_TIME
+#define ULOG_OUTPUT_LEVEL
+#define ULOG_OUTPUT_TAG
+#define ULOG_BACKEND_USING_CONSOLE
+#define ULOG_USING_FILTER
 
 /* RT-Thread online packages */
 
@@ -144,6 +165,19 @@
 
 /* system packages */
 
+#define PKG_USING_FAL
+#define FAL_DEBUG 0
+#define FAL_PART_HAS_TABLE_CFG
+#define PKG_USING_FAL_V00500
+#define PKG_FAL_VER_NUM 0x00500
+#define PKG_USING_LITTLEFS
+#define PKG_USING_LITTLEFS_V205
+#define LFS_READ_SIZE 256
+#define LFS_PROG_SIZE 256
+#define LFS_BLOCK_SIZE 2048
+#define LFS_CACHE_SIZE 256
+#define LFS_BLOCK_CYCLES 0
+#define LFS_LOOKAHEAD_MAX 128
 
 /* peripheral libraries and drivers */
 
@@ -156,5 +190,9 @@
 #define STM32F103RC
 #define RT_HSE_VALUE 8000000
 #define RT_USING_UART1
+#define BSP_USING_ON_CHIP_FLASH
+#define STM32_FLASH_START_ADDRESS 0x0803B000
+#define STM32_FLASH_END_ADDRESS 0x08040000
+#define STM32_FLASH_SIZE 0x5000
 
 #endif

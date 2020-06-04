@@ -11,7 +11,7 @@
 #include "board.h"
 
 #ifdef BSP_USING_ON_CHIP_FLASH
-#include "drv_config.h"
+//#include "drv_config.h"
 #include "drv_flash.h"
 
 #if defined(PKG_USING_FAL)
@@ -20,7 +20,7 @@
 
 //#define DRV_DEBUG
 #define LOG_TAG                "drv.flash"
-#include <drv_log.h>
+#include <ulog.h>
 
 /**
   * @brief  Gets the page of a given address
@@ -142,7 +142,7 @@ int stm32_flash_erase(rt_uint32_t addr, size_t size)
     if ((addr + size) > STM32_FLASH_END_ADDRESS)
     {
         LOG_E("ERROR: erase outrange flash size! addr is (0x%p)\n", (void *)(addr + size));
-        return -RT_EINVAL;
+        return 0;
     }
 
     HAL_FLASH_Unlock();
@@ -163,11 +163,11 @@ __exit:
 
     if (result != RT_EOK)
     {
-        return result;
+        return 0;
     }
 
     LOG_D("erase done: addr (0x%p), size %d", (void *)addr, size);
-    return result;
+    return size;
 }
 
 #if defined(PKG_USING_FAL)
@@ -176,7 +176,7 @@ static int fal_flash_read(long offset, rt_uint8_t *buf, size_t size);
 static int fal_flash_write(long offset, const rt_uint8_t *buf, size_t size);
 static int fal_flash_erase(long offset, size_t size);
 
-const struct fal_flash_dev stm32_onchip_flash = { "onchip_flash", STM32_FLASH_START_ADRESS, STM32_FLASH_SIZE, FLASH_PAGE_SIZE, {NULL, fal_flash_read, fal_flash_write, fal_flash_erase} };
+const struct fal_flash_dev stm32_onchip_flash = { "onchip_flash", STM32_FLASH_START_ADDRESS, STM32_FLASH_SIZE, FLASH_PAGE_SIZE, {NULL, fal_flash_read, fal_flash_write, fal_flash_erase} };
 
 static int fal_flash_read(long offset, rt_uint8_t *buf, size_t size)
 {
