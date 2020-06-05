@@ -10,7 +10,7 @@
       <TargetName>rtthread-stm32</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, LFS_CONFIG=lfs_config.h, RT_USING_ARM_LIBC, STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>.;..\..\include;applications;.;drivers;Libraries\CMSIS\Device\ST\STM32F1xx\Include;Libraries\STM32F1xx_HAL_Driver\Inc;Libraries\CMSIS\Include;packages\fal-v0.5.0\inc;packages\littlefs-v2.0.5;..\..\libcpu\arm\cortex-m3;..\..\libcpu\arm\common;..\..\components\dfs\include;..\..\components\dfs\filesystems\devfs;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\armlibc;..\..\components\libc\compilers\common;..\..\components\utilities\ulog</IncludePath>
+              <IncludePath>.;..\..\include;applications;.;drivers;Libraries\CMSIS\Device\ST\STM32F1xx\Include;Libraries\STM32F1xx_HAL_Driver\Inc;Libraries\CMSIS\Include;packages\cJSON-v1.0.2;packages\fal-v0.5.0\inc;packages\littlefs-v2.0.5;testcases;.;..\..\libcpu\arm\cortex-m3;..\..\libcpu\arm\common;..\..\components\dfs\include;..\..\components\dfs\filesystems\devfs;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\armlibc;..\..\components\libc\compilers\common;..\..\components\utilities\ulog;..\..\components\utilities\utest</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -795,6 +795,26 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>cJSON</GroupName>
+          <Files>
+            <File>
+              <FileName>cJSON.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\cJSON-v1.0.2\cJSON.c</FilePath>
+            </File>
+            <File>
+              <FileName>cJSON_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\cJSON-v1.0.2\cJSON_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>cJSON_util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\cJSON-v1.0.2\cJSON_util.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>fal</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -842,7 +862,7 @@
                   <MiscControls></MiscControls>
                   <Define> </Define>
                   <Undefine> </Undefine>
-                  <IncludePath> </IncludePath>
+                  <IncludePath></IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>
@@ -910,6 +930,16 @@
               <FileName>lfs_util.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\littlefs-v2.0.5\lfs_util.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>testcases</GroupName>
+          <Files>
+            <File>
+              <FileName>cjson_utest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>testcases\cjson_utest.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1120,6 +1150,16 @@
               <FileName>console_be.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\components\utilities\ulog\backend\console_be.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>utest</GroupName>
+          <Files>
+            <File>
+              <FileName>utest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\components\utilities\utest\utest.c</FilePath>
             </File>
           </Files>
         </Group>

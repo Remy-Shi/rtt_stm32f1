@@ -10,7 +10,7 @@
 #define RT_ALIGN_SIZE 4
 #define RT_THREAD_PRIORITY_32
 #define RT_THREAD_PRIORITY_MAX 32
-#define RT_TICK_PER_SECOND 100
+#define RT_TICK_PER_SECOND 1000
 #define RT_USING_OVERFLOW_CHECK
 #define RT_USING_HOOK
 #define RT_USING_IDLE_HOOK
@@ -38,7 +38,7 @@
 
 #define RT_USING_DEVICE
 #define RT_USING_CONSOLE
-#define RT_CONSOLEBUF_SIZE 128
+#define RT_CONSOLEBUF_SIZE 1024
 #define RT_CONSOLE_DEVICE_NAME "uart1"
 #define RT_VER_NUM 0x30103
 
@@ -124,7 +124,7 @@
 #define ULOG_OUTPUT_LVL_D
 #define ULOG_OUTPUT_LVL 7
 #define ULOG_ASSERT_ENABLE
-#define ULOG_LINE_BUF_SIZE 128
+#define ULOG_LINE_BUF_SIZE 1024
 
 /* log format */
 
@@ -134,11 +134,16 @@
 #define ULOG_OUTPUT_TAG
 #define ULOG_BACKEND_USING_CONSOLE
 #define ULOG_USING_FILTER
+#define RT_USING_UTEST
+#define UTEST_THR_STACK_SIZE 4096
+#define UTEST_THR_PRIORITY 20
 
 /* RT-Thread online packages */
 
 /* IoT - internet of things */
 
+#define PKG_USING_CJSON
+#define PKG_USING_CJSON_V102
 
 /* Wi-Fi */
 

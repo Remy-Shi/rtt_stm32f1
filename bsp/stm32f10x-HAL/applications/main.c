@@ -12,6 +12,7 @@
 #include <ulog.h>
 #include <fal.h>
 #include <dfs_fs.h>
+#include "cJSON.h"
 
 #define FS_PARTITION_NAME              "filesys"
 
