@@ -7,6 +7,8 @@
  * Date           Author       Notes
  * 2015-07-29     Arda.Fu      first implementation
  */
+ 
+#define LOG_TAG	"MAIN"
 #include <rtthread.h>
 #include "rtdevice.h"
 #include <ulog.h>
@@ -14,14 +16,14 @@
 #include <dfs_fs.h>
 #include "cJSON.h"
 
-#define FS_PARTITION_NAME              "filesys"
+#define FS_PARTITION_NAME              "file_sys"
 
-void fs_init(void)
+static int fs_init(void)
 {
     struct rt_device *mtd_dev = RT_NULL;
-    /* ³õÊ¼»¯ fal */    
+    /* åˆå§‹åŒ– fal */    
     fal_init();
-    /* Éú³É mtd Éè±¸ */
+    /* ç”Ÿæˆ mtd è®¾å¤‡ */
     mtd_dev = fal_mtd_nor_device_create(FS_PARTITION_NAME);
     if (!mtd_dev)
     {
@@ -29,16 +31,16 @@ void fs_init(void)
     }
     else
     {
-        /* ¹ÒÔØ littlefs */
+        /* æŒ‚è½½ littlefs */
         if (dfs_mount(FS_PARTITION_NAME, "/", "lfs", 0, 0) == 0)
         {
             LOG_I("Filesystem initialized!");
         }
         else
         {
-            /* ¸ñÊ½»¯ÎÄ¼şÏµÍ³ */
+            /* æ ¼å¼åŒ–æ–‡ä»¶ç³»ç»Ÿ */
             dfs_mkfs("lfs", FS_PARTITION_NAME);
-            /* ¹ÒÔØ littlefs */
+            /* æŒ‚è½½ littlefs */
             if (dfs_mount("filesystem", "/", "lfs", 0, 0) == 0)
             {
                 LOG_I("Filesystem initialized!");
@@ -49,11 +51,12 @@ void fs_init(void)
             }
         }
     }
+	return 0;
 }
+INIT_ENV_EXPORT(fs_init);
 
 int main(void)
 {
     /* user app entry */
-	fs_init();
     return 0;
 }

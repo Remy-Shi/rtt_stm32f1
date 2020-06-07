@@ -44,7 +44,8 @@ extern const struct fal_flash_dev stm32_onchip_flash;
 /* partition table */
 #define FAL_PART_TABLE                                                               \
 {                                                                                    \
-    {FAL_PART_MAGIC_WORD,  "filesys", NOR_FLASH_DEV_NAME,  0, STM32_FLASH_SIZE, 0}, \
+	{FAL_PART_MAGIC_WORD, "info_erea", NOR_FLASH_DEV_NAME, 0, 2048, 0},				\
+    {FAL_PART_MAGIC_WORD, "file_sys", NOR_FLASH_DEV_NAME,  2048, STM32_FLASH_SIZE-2048, 0}, \
 }
 #endif /* FAL_PART_HAS_TABLE_CFG */
 

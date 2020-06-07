@@ -9,6 +9,7 @@
 #include <rtthread.h>
 #include "utest.h"
 #include "cJSON.h"
+#include <dfs_posix.h>
 
 static void cjson_utest(void)
 {
@@ -44,11 +45,34 @@ static void cjson_utest(void)
 	LOG_D("\n|============================== RAW JSON ==============================|");
 	LOG_D("\n%s\n", json_print);
 	LOG_D("\n|============================ MINIFY JSON =============================|");
-	cJSON_Minify(json_print); // Minify JSON in order to store
-	LOG_D("\n%s\n", json_print); // 'json_print' may be used to write to a file
+	cJSON_Minify(json_print); 		// Minify JSON in order to store
+	LOG_D("\n%s\n", json_print); 	// 'json_print' may be used to write to a file
+	char *json_print_copy = json_print;
+	uint16_t sizeof_json_print = 0;
+	while(*json_print_copy != '\0'){
+		sizeof_json_print++;
+		json_print_copy++;
+	}
+	LOG_D("=== The size of JSON is %d Byte(s)", sizeof_json_print);
+	int fd = open("/json_sample.json", O_WRONLY | O_CREAT);
+	if(fd>= 0)
+	{
+		write(fd, json_print, sizeof_json_print);
+		close(fd);
+		LOG_D("=== Write JSON to '/json_sample.json'");
+	}
 	cJSON_Delete(json_file);
 	
-	json_file = cJSON_Parse(json_print); // 'json_print' may read from a file
+	char *json_for_parse = rt_malloc(sizeof(char)*sizeof_json_print);
+	fd = open("/json_sample.json", O_RDONLY);
+	if(fd >= 0){
+		int size = read(fd, json_for_parse, sizeof_json_print);
+		close(fd);
+	}
+	LOG_D("\n|============================ JSON file =============================|");
+	LOG_D("\n%s\n", json_for_parse);
+	json_file = cJSON_Parse(json_for_parse); // 'json_print' may read from a file
+	rt_free(json_for_parse);
 	// Get item from the JSON file and check it
 	json_item = cJSON_GetObjectItem(json_file, "NULL");
 	uassert_int_equal(json_item->type, cJSON_NULL);
@@ -92,6 +116,17 @@ static void cjson_utest(void)
 		array_index++;
 		json_item = json_item->next;
 	}while(RT_NULL != json_item);
+	
+	// Delete item
+	cJSON_DeleteItemFromObject(json_file, "NULL");
+	cJSON_DeleteItemFromObject(json_file, "TRUE");
+	cJSON_DeleteItemFromObject(json_file, "FALSE");
+	cJSON_DeleteItemFromObject(json_file, "JSON_OBJ");
+	rt_free(json_print);
+	json_print = cJSON_Print(json_file);
+	LOG_D("\n|============================== NEW JSON ==============================|");
+	LOG_D("\n%s\n", json_print);
+	
 	/************************* Free variables ************************/
 	cJSON_Delete(json_file);
 	rt_free(json_print);
